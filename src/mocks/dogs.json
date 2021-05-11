@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "6093912ea411a8519cf62fc0",
+    "name": "Max",
+    "breed": "French buldog",
+    "age": 5,
+    "__v": 0
+  },
+  {
+    "_id": "6093aae375551b34bcb1def1",
+    "name": "Elvis",
+    "breed": "Yorkshire",
+    "age": 6,
+    "__v": 0
+  }
+]
