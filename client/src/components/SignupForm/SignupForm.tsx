@@ -16,7 +16,6 @@ const SignupForm = ({ onSubmit }: SignUpFormProps): JSX.Element => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>({ mode: 'onBlur' });
 
