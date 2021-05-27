@@ -18,8 +18,17 @@ const initialState: User = {
 const userSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {},
+  reducers: {
+    signin: (state) => {
+      state.authenticated = true;
+    },
+    signout: (state) => {
+      state.authenticated = false;
+    },
+  },
 });
+
+export const { signin, signout } = userSlice.actions;
 
 export const userIsAuthenticated = (state: RootState): boolean =>
   state.user.authenticated;
