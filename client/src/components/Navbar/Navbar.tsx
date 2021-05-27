@@ -26,6 +26,7 @@ const Navbar = (): JSX.Element => {
           <button
             onClick={() => {
               dispatch(signout());
+              history.push('/');
             }}
           >
             Sign out

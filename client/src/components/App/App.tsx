@@ -8,15 +8,16 @@ const App = (): JSX.Element => {
     <Router>
       <Navbar />
       <Switch>
-        <Route path='/login'>
-          <LoginPage />
-        </Route>
         <ProtectedRoute path='/dogs/add'>
           <AddDogForm />
         </ProtectedRoute>
         <ProtectedRoute path='/dogs'>
           <DogList />
         </ProtectedRoute>
+        <Route path='/login'>
+          <LoginPage />
+        </Route>
+        <Route exact path='/' component={() => <div>Home</div>}></Route>
       </Switch>
     </Router>
   );
