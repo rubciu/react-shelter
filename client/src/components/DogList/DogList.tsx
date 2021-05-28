@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
+
+import { useAppDispatch, useAppSelector } from '../../helpers/hooks';
+import { fetchDogs, selectAllDogs } from '../../features/dogs/dogsSlice';
+
 import { Card } from '..';
 
 export type Dog = {
@@ -9,25 +12,30 @@ export type Dog = {
 };
 
 const DogList = (): JSX.Element => {
-  const [dogs, setDogs] = React.useState<Dog[]>([]);
+  const dispatch = useAppDispatch();
+  const dogs = useAppSelector(selectAllDogs);
+  const dogsStatus = useAppSelector((state) => state.dogs.status);
 
   useEffect(() => {
-    async function fetchDogs() {
-      try {
-        const response = await axios.get('http://localhost:3000/dogs');
-        const data = response.data;
-        setDogs(data);
-      } catch (error) {
-        console.log(error);
-      }
+    if (dogsStatus === 'idle') {
+      dispatch(fetchDogs());
     }
-    fetchDogs();
-  }, []);
+  }, [dogsStatus, dispatch]);
+
+  let content;
+  if (dogsStatus === 'loading') {
+    content = <div>Loading...</div>;
+  } else if (dogsStatus === 'succeeded') {
+    content = dogs.map((dog, index) => <Card key={index} title={dog.name} />);
+  } else if (dogsStatus === 'failed') {
+    content = <div>Something has failed, please try again later!</div>;
+  }
+
   return (
     <div>
-      {dogs.map((dog, index) => (
-        <Card key={index} title={dog.name} />
-      ))}
+      <h1>Dogs</h1>
+      <h3>Welcome to the list of dogs</h3>
+      {content}
     </div>
   );
 };
