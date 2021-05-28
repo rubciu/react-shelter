@@ -16,7 +16,7 @@ const Navbar = (): JSX.Element => {
   const { from } = location.state || { from: { pathname: '/' } };
 
   return (
-    <nav className={styles.navbar}>
+    <nav className={styles.nav}>
       <div className={styles.menu}>
         <Link to='/dogs'>Dogs</Link>
         <Link to='/dogs/add'>Add dog</Link>
@@ -32,14 +32,18 @@ const Navbar = (): JSX.Element => {
             Sign out
           </button>
         ) : (
-          <button
-            onClick={() => {
-              dispatch(signin());
-              history.replace(from);
-            }}
-          >
-            Sign in
-          </button>
+          <div className={styles.signin}>
+            <Link to='/login'>Sign in</Link>
+            <div className={styles.signup}>
+              <button
+                onClick={() => {
+                  history.push('/signup');
+                }}
+              >
+                Sign up
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </nav>

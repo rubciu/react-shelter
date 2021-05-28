@@ -1,6 +1,8 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+import styles from './SignUpForm.module.scss';
+
 type Inputs = {
   email: string;
   password: string;
@@ -10,9 +12,7 @@ type SignUpFormProps = {
   onSubmit: SubmitHandler<Inputs>;
 };
 
-// const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
-
-const SignupForm = ({ onSubmit }: SignUpFormProps): JSX.Element => {
+const SignUpForm = ({ onSubmit }: SignUpFormProps): JSX.Element => {
   const {
     register,
     handleSubmit,
@@ -21,25 +21,32 @@ const SignupForm = ({ onSubmit }: SignUpFormProps): JSX.Element => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor='email'>Email</label>
-      <input
-        id='email'
-        {...register('email', { required: true })}
-        placeholder='Email'
-      />
-      {errors.email && <span>Email is required!</span>}
+      <div className={styles.field}>
+        <label htmlFor='email'>Email</label>
+        <div className={styles.input}>
+          <input
+            id='email'
+            {...register('email', { required: true })}
+            placeholder='Email'
+          />
+          {errors.email && <span>Email is required!</span>}
+        </div>
+      </div>
 
-      <label htmlFor='password'>Password</label>
-      <input
-        id='password'
-        {...register('password', { required: true })}
-        placeholder='Password'
-      />
-      {errors.password && <span>Password is required!</span>}
-
-      <input type='submit' />
+      <div className={styles.field}>
+        <label htmlFor='password'>Password</label>
+        <div className={styles.input}>
+          <input
+            id='password'
+            {...register('password', { required: true })}
+            placeholder='Password'
+          />
+          {errors.password && <span>Password is required!</span>}
+        </div>
+      </div>
+      <button type='submit'>Send</button>
     </form>
   );
 };
 
-export default SignupForm;
+export default SignUpForm;

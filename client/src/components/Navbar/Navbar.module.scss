@@ -1,4 +1,4 @@
-.navbar {
+.nav {
   display: flex;
   padding: 20px;
   justify-content: space-between;
@@ -20,4 +20,10 @@
       color: blue;
     }
   }
+}
+
+.signin {
+  display: flex;
+  width: 140px;
+  justify-content: space-between;
 }

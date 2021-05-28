@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, act, fireEvent, cleanup } from '@testing-library/react';
-import SignUpForm from './SignupForm';
-import SignupForm from './SignupForm';
+import SignUpForm from './SignUpForm';
 
 describe('SignUp', () => {
   afterEach(cleanup);
@@ -10,7 +9,7 @@ describe('SignUp', () => {
     it('calls the onSubmit function', async () => {
       const mockOnSubmit = jest.fn();
       const { getByLabelText, getByRole } = render(
-        <SignupForm onSubmit={mockOnSubmit} />
+        <SignUpForm onSubmit={mockOnSubmit} />
       );
 
       await act(async () => {
