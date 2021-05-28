@@ -8,11 +8,21 @@ type User = {
   authenticated: boolean;
 };
 
-const initialState: User = {
-  _id: '',
-  name: '',
-  email: '',
-  authenticated: false,
+interface UserState {
+  user: User;
+  status: string;
+  error: string | null;
+}
+
+const initialState: UserState = {
+  user: {
+    _id: '',
+    name: '',
+    email: '',
+    authenticated: false,
+  },
+  status: 'idle',
+  error: null,
 };
 
 const userSlice = createSlice({
@@ -20,10 +30,10 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     signin: (state) => {
-      state.authenticated = true;
+      state.user.authenticated = true;
     },
     signout: (state) => {
-      state.authenticated = false;
+      state.user.authenticated = false;
     },
   },
 });
@@ -31,6 +41,6 @@ const userSlice = createSlice({
 export const { signin, signout } = userSlice.actions;
 
 export const userIsAuthenticated = (state: RootState): boolean =>
-  state.user.authenticated;
+  state.user.user.authenticated;
 
 export default userSlice.reducer;
