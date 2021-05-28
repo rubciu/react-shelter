@@ -26,10 +26,16 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps): JSX.Element => {
         <div className={styles.input}>
           <input
             id='email'
-            {...register('email', { required: true })}
+            {...register('email', {
+              required: 'Email is required.',
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+$/,
+                message: 'Please enter a valid email',
+              },
+            })}
             placeholder='Email'
           />
-          {errors.email && <span>Email is required!</span>}
+          {errors.email && <span>{errors.email.message}</span>}
         </div>
       </div>
 
@@ -38,10 +44,16 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps): JSX.Element => {
         <div className={styles.input}>
           <input
             id='password'
-            {...register('password', { required: true })}
+            {...register('password', {
+              required: 'Please enter a password',
+              minLength: {
+                value: 6,
+                message: 'Password needs to be at least 6 characters',
+              },
+            })}
             placeholder='Password'
           />
-          {errors.password && <span>Password is required!</span>}
+          {errors.password && <span>{errors.password.message}</span>}
         </div>
       </div>
       <button type='submit'>Send</button>
