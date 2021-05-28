@@ -47,8 +47,8 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps): JSX.Element => {
             {...register('password', {
               required: 'Please enter a password',
               minLength: {
-                value: 6,
-                message: 'Password needs to be at least 6 characters',
+                value: 7,
+                message: 'Password needs to be at least 7 characters',
               },
             })}
             placeholder='Password'
