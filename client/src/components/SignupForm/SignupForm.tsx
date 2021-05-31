@@ -3,13 +3,13 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import styles from './SignUpForm.module.scss';
 
-type Inputs = {
+export type SignUpFormInputs = {
   email: string;
   password: string;
 };
 
 type SignUpFormProps = {
-  onSubmit: SubmitHandler<Inputs>;
+  onSubmit: SubmitHandler<SignUpFormInputs>;
 };
 
 const SignUpForm = ({ onSubmit }: SignUpFormProps): JSX.Element => {
@@ -17,7 +17,7 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps): JSX.Element => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>({ mode: 'onBlur' });
+  } = useForm<SignUpFormInputs>({ mode: 'onBlur' });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
