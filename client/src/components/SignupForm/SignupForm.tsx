@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import styles from './SignUpForm.module.scss';
 
 export type SignUpFormInputs = {
+  name: string;
   email: string;
   password: string;
 };
@@ -21,6 +22,19 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps): JSX.Element => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <div className={styles.field}>
+        <label htmlFor='name'>Name</label>
+        <div className={styles.input}>
+          <input
+            id='name'
+            {...register('name', {
+              required: 'Name is required.',
+            })}
+            placeholder='Name'
+          />
+          {errors.name && <span>Please enter a name</span>}
+        </div>
+      </div>
       <div className={styles.field}>
         <label htmlFor='email'>Email</label>
         <div className={styles.input}>

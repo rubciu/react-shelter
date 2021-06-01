@@ -5,16 +5,15 @@ import { RootState } from '../../store';
 
 type User = {
   _id: string | undefined;
-  name: string;
+  name: string | undefined;
   email: string | undefined;
   authenticated: boolean;
 };
 
 export type UserInput = {
+  name: string;
   email: string;
   password: string;
-  name?: string;
-  age?: string;
 };
 
 type UserOutput = {
@@ -79,6 +78,7 @@ const userSlice = createSlice({
       state.user = {
         ...state.user,
         _id: action.payload?.user._id,
+        name: action.payload?.user.name,
         email: action.payload?.user.email,
         authenticated: true,
       };
@@ -93,5 +93,7 @@ export const { signin, signout } = userSlice.actions;
 
 export const userIsAuthenticated = (state: RootState): boolean =>
   state.user.user.authenticated;
+
+export const getUser = (state: RootState): User => state.user.user;
 
 export default userSlice.reducer;

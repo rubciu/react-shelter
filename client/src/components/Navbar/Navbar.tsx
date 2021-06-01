@@ -5,11 +5,13 @@ import {
   signin,
   signout,
   userIsAuthenticated,
+  getUser,
 } from '../../features/user/userSlice';
 import styles from './Navbar.module.scss';
 
 const Navbar = (): JSX.Element => {
   const isAuthenticated = useAppSelector((state) => userIsAuthenticated(state));
+  const user = useAppSelector((state) => getUser(state));
   const location = useLocation<any>(); // TODO: replace any
   const history = useHistory();
   const dispatch = useAppDispatch();
@@ -23,14 +25,17 @@ const Navbar = (): JSX.Element => {
       </div>
       <div className={styles.profile}>
         {isAuthenticated ? (
-          <button
-            onClick={() => {
-              dispatch(signout());
-              history.push('/');
-            }}
-          >
-            Sign out
-          </button>
+          <div>
+            <span className={styles.username}>{user.name}</span>
+            <button
+              onClick={() => {
+                dispatch(signout());
+                history.push('/');
+              }}
+            >
+              Sign out
+            </button>
+          </div>
         ) : (
           <div className={styles.signin}>
             <Link to='/login'>Sign in</Link>
