@@ -1,5 +1,5 @@
 import { act } from 'react-test-renderer';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 
 import { testRender } from '../../helpers/test-utils';
