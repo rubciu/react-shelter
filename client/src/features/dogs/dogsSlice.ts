@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
 
-import type { RootState } from '../../store';
+import type { RootState } from "../../store";
 
 type Dog = {
   name: string;
@@ -12,19 +12,19 @@ type Dog = {
 
 interface DogState {
   dogs: Dog[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  status: "idle" | "loading" | "succeeded" | "failed";
   error: string | undefined;
 }
 
 const initialState: DogState = {
   dogs: [],
-  status: 'idle',
+  status: "idle",
   error: undefined,
 };
 
-export const fetchDogs = createAsyncThunk('dogs/fetchDogs', async () => {
+export const fetchDogs = createAsyncThunk("dogs/fetchDogs", async () => {
   try {
-    const response = await axios.get<Dog[]>('http://localhost:3000/dogs');
+    const response = await axios.get<Dog[]>("http://localhost:3000/dogs");
     return response.data;
   } catch (error: unknown) {
     return new Promise((resolve, reject) => reject(error));
@@ -32,7 +32,7 @@ export const fetchDogs = createAsyncThunk('dogs/fetchDogs', async () => {
 });
 
 export const dogsSlice = createSlice({
-  name: 'dogs',
+  name: "dogs",
   initialState,
   reducers: {
     addDog: {
@@ -53,14 +53,14 @@ export const dogsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchDogs.pending, (state, action) => {
-      state.status = 'loading';
+      state.status = "loading";
     });
     builder.addCase(fetchDogs.fulfilled, (state, action) => {
-      state.status = 'succeeded';
+      state.status = "succeeded";
       state.dogs = state.dogs.concat(action.payload);
     });
     builder.addCase(fetchDogs.rejected, (state, action) => {
-      state.status = 'failed';
+      state.status = "failed";
       state.error = action.error.message;
     });
   },
