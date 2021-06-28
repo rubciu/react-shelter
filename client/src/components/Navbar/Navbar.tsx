@@ -39,13 +39,13 @@ const Navbar = (): JSX.Element => {
         ) : (
           <div className={styles.signin}>
             {/* <Link to='/login'>Sign in</Link> */}
-            <button
+            <span
               onClick={() => {
                 dispatch(signin());
               }}
             >
               Sign in
-            </button>
+            </span>
             <div className={styles.signup}>
               <button
                 onClick={() => {

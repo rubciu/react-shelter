@@ -32,6 +32,7 @@ interface UserState {
   user: User;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
+  validationErrors: string[];
 }
 
 const initialState: UserState = {
@@ -43,6 +44,7 @@ const initialState: UserState = {
   },
   status: "idle",
   error: null,
+  validationErrors: [],
 };
 
 export const addNewUser = createAsyncThunk(
@@ -55,8 +57,19 @@ export const addNewUser = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      if (!error.response) {
-        throw error;
+      // TODO: Check if {errors} exists better
+      const { errors } = error.response.data;
+
+      const validationErrors: string[] = Object.keys(errors).map(
+        (field) => errors[field].message
+      );
+
+      if (validationErrors.length) {
+        return thunkAPI.rejectWithValue(validationErrors);
+      } else {
+        return thunkAPI.rejectWithValue(
+          "There has been some problem trying to add new user. Please try again later."
+        );
       }
     }
   }
@@ -87,8 +100,10 @@ const userSlice = createSlice({
         authenticated: true,
       };
     });
-    builder.addCase(addNewUser.rejected, (state, action) => {
+    builder.addCase(addNewUser.rejected, (state, action: any) => {
+      // TODO: Replace any
       state.status = "failed";
+      state.validationErrors = action.payload;
     });
   },
 });
@@ -97,6 +112,9 @@ export const { signin, signout } = userSlice.actions;
 
 export const userIsAuthenticated = (state: RootState): boolean =>
   state.user.user.authenticated;
+
+export const getValidationErrors = (state: RootState): string[] =>
+  state.user.validationErrors;
 
 export const getUser = (state: RootState): User => state.user.user;
 
