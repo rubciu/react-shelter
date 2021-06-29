@@ -93,6 +93,23 @@ describe("SignUp", () => {
       expect(container.innerHTML).toMatch("Please enter a password");
     });
 
-    test.todo("renders error message if password smaller than 7 characters");
+    test("renders error message if password smaller than 7 characters", async () => {
+      const mockOnSubmit = jest.fn();
+      const { getByLabelText, container } = render(
+        <SignUpForm onSubmit={mockOnSubmit} />
+      );
+
+      await act(async () => {
+        const passwordInput = getByLabelText("Password");
+        fireEvent.change(passwordInput, {
+          target: { value: "123456" },
+        });
+        fireEvent.blur(passwordInput);
+      });
+
+      expect(container.innerHTML).toMatch(
+        "Password needs to be at least 7 characters."
+      );
+    });
   });
 });
