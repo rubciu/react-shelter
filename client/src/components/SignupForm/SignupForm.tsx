@@ -25,14 +25,30 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps): JSX.Element => {
       <div className={styles.field}>
         <label htmlFor="name">Name</label>
         <div className={styles.input}>
-          <input id="name" {...register("name")} placeholder="Name" />
-          {errors.name && <span>Please enter a name</span>}
+          <input
+            id="name"
+            {...register("name", {
+              required: "Name is required.",
+            })}
+            placeholder="Name"
+          />
+          {errors.name && <span>{errors.name.message}</span>}
         </div>
       </div>
       <div className={styles.field}>
         <label htmlFor="email">Email</label>
         <div className={styles.input}>
-          <input id="email" {...register("email")} placeholder="Email" />
+          <input
+            id="email"
+            {...register("email", {
+              required: "Email is required.",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+$/,
+                message: "Please enter a valid email.",
+              },
+            })}
+            placeholder="Email"
+          />
           {errors.email && <span>{errors.email.message}</span>}
         </div>
       </div>
@@ -42,7 +58,13 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps): JSX.Element => {
         <div className={styles.input}>
           <input
             id="password"
-            {...register("password")}
+            {...register("password", {
+              required: "Please enter a password.",
+              minLength: {
+                value: 7,
+                message: "Password needs to be at least 7 characters.",
+              },
+            })}
             placeholder="Password"
           />
           {errors.password && <span>{errors.password.message}</span>}
